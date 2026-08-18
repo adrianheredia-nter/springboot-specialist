@@ -60,6 +60,8 @@ public final class Constants {
     public static final String ERROR_PRODUCT_EXISTS = "Product {0} already exists for provider with id {1}!";
     /** Error message used when a user email is already registered. */
     public static final String ERROR_USER_EXISTS = "User with email {0} already exists!";
+    /** Error message used when the database rejects duplicated data. */
+    public static final String ERROR_DATA_INTEGRITY = "The data sent violates a uniqueness constraint!";
     /** Error message used when a positive number is expected. */
     public static final String ERROR_POSITIVE_NUMBER = "The parameter {0} must be greater than 0!";
     /** Error message used when a date range is inconsistent. */

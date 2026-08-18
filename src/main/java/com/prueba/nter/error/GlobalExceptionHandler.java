@@ -1,9 +1,11 @@
 package com.prueba.nter.error;
 
+import com.prueba.nter.commons.Constants;
 import com.prueba.nter.error.exception.AlreadyExistsException;
 import com.prueba.nter.error.exception.InvalidFileException;
 import com.prueba.nter.error.exception.NotFoundException;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -40,6 +42,17 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AlreadyExistsException.class)
     public ResponseEntity<CustomError> handleAlreadyExists(AlreadyExistsException exception) {
         return build(HttpStatus.CONFLICT, exception.getMessage());
+    }
+
+    /**
+     * Handles unique constraint violations detected by the database.
+     *
+     * @param exception the caught exception
+     * @return a {@code 409} response
+     */
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<CustomError> handleDataIntegrity(DataIntegrityViolationException exception) {
+        return build(HttpStatus.CONFLICT, Constants.ERROR_DATA_INTEGRITY);
     }
 
     /**

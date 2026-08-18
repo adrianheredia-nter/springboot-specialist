@@ -83,7 +83,7 @@ public class ProductServiceImpl implements ProductService {
         String key = input.name() + "#" + input.providerId();
         if (!processed.add(key) || productRepository.existsByNameAndProviderId(input.name(), input.providerId())) {
             throw new AlreadyExistsException(MessageFormat.format(
-                    Constants.ERROR_PRODUCT_EXISTS, input.name(), input.providerId()));
+                    Constants.ERROR_PRODUCT_EXISTS, input.name(), String.valueOf(input.providerId())));
         }
     }
 

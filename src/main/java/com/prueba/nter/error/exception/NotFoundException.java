@@ -30,7 +30,7 @@ public class NotFoundException extends RuntimeException {
      * @return a supplier creating the exception lazily
      */
     public static Supplier<NotFoundException> supply(String entity, Object id) {
-        return () -> new NotFoundException(MessageFormat.format(MESSAGE, entity, id));
+        return () -> new NotFoundException(MessageFormat.format(MESSAGE, entity, String.valueOf(id)));
     }
 
     /**
@@ -42,6 +42,7 @@ public class NotFoundException extends RuntimeException {
      * @return a supplier creating the exception lazily
      */
     public static Supplier<NotFoundException> supplyByField(String entity, String field, Object value) {
-        return () -> new NotFoundException(MessageFormat.format(MESSAGE_BY_FIELD, entity, field, value));
+        return () -> new NotFoundException(
+                MessageFormat.format(MESSAGE_BY_FIELD, entity, field, String.valueOf(value)));
     }
 }
