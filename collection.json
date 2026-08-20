@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "9f2c0a4e-2c4c-4c62-9a2b-1d6f4f1b7d21",
     "name": "Spring Boot Specialist Exam",
-    "description": "Collection covering every endpoint of the Spring Boot Specialist exam. The application runs on http://localhost:8090. Upload requests expect the files src/main/resources/Products.json and src/main/resources/Users.json to be selected in the form-data 'file' field.",
+    "description": "Collection covering every endpoint of the Spring Boot Specialist exam. The application runs on http://localhost:8090. Upload requests expect the files src/main/resources/Products.json and src/main/resources/Users.json to be selected in the form-data 'file' field. Run the two upload requests first after starting the application: the schema is recreated on every start, and on an already populated database they answer 409 because the data is already imported.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
