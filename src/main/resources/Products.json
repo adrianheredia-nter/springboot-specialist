@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Disco Duro SSD",
+    "description": "Disco SSD de 1TB con velocidad de lectura de 550MB/s.",
+    "price": 89.99,
+    "quantity": 45,
+    "category": "Electrónica",
+    "brand": "MarcaStorage",
+    "expirationDate": "2026-06-15",
+    "providerId": 1,
+    "userId": 1
+  },
+  {
+    "name": "Impresora Láser",
+    "description": "Impresora láser monocromática con conectividad WiFi.",
+    "price": 199.99,
+    "quantity": 20,
+    "category": "Electrónica",
+    "brand": "MarcaPrint",
+    "expirationDate": "2026-07-20",
+    "providerId": 1,
+    "userId": 1
+  },
+  {
+    "name": "Estantería Metálica",
+    "description": "Estantería de metal con 5 niveles ajustables.",
+    "price": 119.99,
+    "quantity": 30,
+    "category": "Muebles",
+    "brand": "MarcaOrganize",
+    "expirationDate": "2026-08-10",
+    "providerId": 2,
+    "userId": 2
+  },
+  {
+    "name": "Zapatillas Trail",
+    "description": "Zapatillas de trail running con suela Vibram.",
+    "price": 129.99,
+    "quantity": 60,
+    "category": "Calzado",
+    "brand": "MarcaTrail",
+    "expirationDate": "2026-09-05",
+    "providerId": 3,
+    "userId": 2
+  },
+  {
+    "name": "Hub USB 3.0",
+    "description": "Hub USB 3.0 de 7 puertos con alimentación externa.",
+    "price": 29.99,
+    "quantity": 100,
+    "category": "Electrónica",
+    "brand": "MarcaConnect",
+    "expirationDate": "2026-10-01",
+    "providerId": 1,
+    "userId": 3
+  },
+  {
+    "name": "Alfombrilla Gaming XL",
+    "description": "Alfombrilla de ratón XXL con base antideslizante.",
+    "price": 24.99,
+    "quantity": 80,
+    "category": "Accesorios",
+    "brand": "MarcaPad",
+    "expirationDate": "2026-11-15",
+    "providerId": 3,
+    "userId": 3
+  },
+  {
+    "name": "Soporte Monitor",
+    "description": "Brazo articulado para monitor de hasta 32 pulgadas.",
+    "price": 79.99,
+    "quantity": 35,
+    "category": "Muebles",
+    "brand": "MarcaMount",
+    "expirationDate": "2026-12-20",
+    "providerId": 2,
+    "userId": 4
+  },
+  {
+    "name": "Cables HDMI 2.1",
+    "description": "Cable HDMI 2.1 de 2 metros con soporte 8K.",
+    "price": 14.99,
+    "quantity": 150,
+    "category": "Electrónica",
+    "brand": "MarcaCable",
+    "expirationDate": "2027-01-10",
+    "providerId": 1,
+    "userId": 4
+  },
+  {
+    "name": "Sudadera Técnica",
+    "description": "Sudadera con tejido técnico transpirable.",
+    "price": 49.99,
+    "quantity": 90,
+    "category": "Ropa",
+    "brand": "MarcaSport",
+    "expirationDate": "2027-02-28",
+    "providerId": 3,
+    "userId": 5
+  },
+  {
+    "name": "Ventilador USB",
+    "description": "Ventilador de escritorio con conexión USB y 3 velocidades.",
+    "price": 19.99,
+    "quantity": 110,
+    "category": "Accesorios",
+    "brand": "MarcaBreeze",
+    "expirationDate": "2027-03-15",
+    "providerId": 2,
+    "userId": 5
+  }
+]

@@ -1,0 +1,426 @@
+{
+  "info": {
+    "_postman_id": "9f2c0a4e-2c4c-4c62-9a2b-1d6f4f1b7d21",
+    "name": "Spring Boot Specialist Exam",
+    "description": "Collection covering every endpoint of the Spring Boot Specialist exam. The application runs on http://localhost:8090. Upload requests expect the files src/main/resources/Products.json and src/main/resources/Users.json to be selected in the form-data 'file' field. Run the two upload requests first after starting the application: the schema is recreated on every start, and on an already populated database they answer 409 because the data is already imported.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8090"
+    }
+  ],
+  "item": [
+    {
+      "name": "Web - Products",
+      "item": [
+        {
+          "name": "Upload Products.json",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "src/main/resources/Products.json",
+                  "description": "Products.json bundled with the project"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/web/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "web", "products"]
+            },
+            "description": "Reads, validates and persists the products contained in Products.json. Returns 201 with the stored products."
+          }
+        },
+        {
+          "name": "Get all products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/web/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "web", "products"]
+            },
+            "description": "Returns every product stored in the H2 database."
+          }
+        },
+        {
+          "name": "Total price of Products.json",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "src/main/resources/Products.json"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/web/products/total-price",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "web", "products", "total-price"]
+            },
+            "description": "Calculates the sum of the prices of the products contained in the uploaded file (759.90 for the bundled file)."
+          }
+        },
+        {
+          "name": "Count products by category from Products.json",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "src/main/resources/Products.json"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/web/products/count-by-category?category=Electrónica",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "web", "products", "count-by-category"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Electrónica"
+                }
+              ]
+            },
+            "description": "Counts how many products of the requested category are contained in the uploaded file."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Web - Users",
+      "item": [
+        {
+          "name": "Upload Users.json",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "src/main/resources/Users.json"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/web/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "web", "users"]
+            },
+            "description": "Reads, validates and persists the users contained in Users.json. Returns 201 with the stored users."
+          }
+        },
+        {
+          "name": "Get all users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/web/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "web", "users"]
+            },
+            "description": "Returns every user stored in the H2 database."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Query - Products (@Query)",
+      "item": [
+        {
+          "name": "Find products by name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/query/products/by-name?name=Portátil",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "query", "products", "by-name"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Portátil"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Count products by category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/query/products/count-by-category?category=Electrónica",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "query", "products", "count-by-category"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Electrónica"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Find products by name and category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/query/products/by-name-and-category?name=Portátil&category=Electrónica",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "query", "products", "by-name-and-category"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Portátil"
+                },
+                {
+                  "key": "category",
+                  "value": "Electrónica"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Prices of a product across providers (ASC)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/query/products/prices?name=Portátil",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "query", "products", "prices"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Portátil"
+                }
+              ]
+            },
+            "description": "Returns the price of the product for every provider, sorted by ascending price."
+          }
+        },
+        {
+          "name": "Lowest priced product for a name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/query/products/lowest-price?name=Portátil",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "query", "products", "lowest-price"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Portátil"
+                }
+              ]
+            },
+            "description": "Uses a subquery with MIN aggregation to return the cheapest product for the given name."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Custom - Products (Criteria API)",
+      "item": [
+        {
+          "name": "Search by optional name and category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/custom/products?name=port&category=Electrónica",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "custom", "products"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "port"
+                },
+                {
+                  "key": "category",
+                  "value": "Electrónica"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Products cheaper than a price",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/custom/products/price-lower-than?price=50.00",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "custom", "products", "price-lower-than"],
+              "query": [
+                {
+                  "key": "price",
+                  "value": "50.00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Products within an expiration date range (ID DESC)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/custom/products/expiration-range?startDate=2024-01-01&endDate=2025-12-31",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "custom", "products", "expiration-range"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2025-12-31"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Products of a user (optional category and brand)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/custom/products/by-user?email=maria.gomez@gmail.es&category=Electrónica&brand=MarcaAudio",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "custom", "products", "by-user"],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "maria.gomez@gmail.es"
+                },
+                {
+                  "key": "category",
+                  "value": "Electrónica"
+                },
+                {
+                  "key": "brand",
+                  "value": "MarcaAudio"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Products of the N oldest users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/custom/products/oldest-users?users=2",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "custom", "products", "oldest-users"],
+              "query": [
+                {
+                  "key": "users",
+                  "value": "2"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Advanced dynamic search (paged and sorted)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/custom/products/search?name=&category=Electrónica&brand=&minPrice=100&maxPrice=1000&startDate=2023-01-01&endDate=2027-12-31&providerId=1&page=0&size=3&sortBy=price&direction=DESC",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "custom", "products", "search"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": ""
+                },
+                {
+                  "key": "category",
+                  "value": "Electrónica"
+                },
+                {
+                  "key": "brand",
+                  "value": ""
+                },
+                {
+                  "key": "minPrice",
+                  "value": "100"
+                },
+                {
+                  "key": "maxPrice",
+                  "value": "1000"
+                },
+                {
+                  "key": "startDate",
+                  "value": "2023-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2027-12-31"
+                },
+                {
+                  "key": "providerId",
+                  "value": "1"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "3"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "price"
+                },
+                {
+                  "key": "direction",
+                  "value": "DESC"
+                }
+              ]
+            },
+            "description": "Every filter is optional and combined dynamically with the Criteria API. Returns a Spring Data Page."
+          }
+        }
+      ]
+    }
+  ]
+}
