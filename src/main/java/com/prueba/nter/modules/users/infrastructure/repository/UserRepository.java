@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
      * @param email the email to look for
      * @return the user, if any
      */
-    Optional<UserEntity> findByEmail(String email);
+    Optional<UserEntity> findByEmailIgnoreCase(String email);
 
     /**
      * Checks whether a user is already registered with the given email.
@@ -26,5 +26,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
      * @param email the email to look for
      * @return {@code true} if the email is already used
      */
-    boolean existsByEmail(String email);
+    boolean existsByEmailIgnoreCase(String email);
 }

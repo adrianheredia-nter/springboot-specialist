@@ -53,7 +53,7 @@ class UserServiceImplTest {
     void shouldImportUsers() {
         UserInputDto input = input("laura.fernandez@gmail.es");
         when(jsonFileReader.read(FILE, UserInputDto.class)).thenReturn(List.of(input));
-        when(userRepository.existsByEmail(input.email())).thenReturn(false);
+        when(userRepository.existsByEmailIgnoreCase(input.email())).thenReturn(false);
         when(userMapper.toEntity(input)).thenReturn(UserEntity.builder().email(input.email()).build());
         when(userRepository.saveAll(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -66,7 +66,7 @@ class UserServiceImplTest {
     void shouldRejectEmailAlreadyStored() {
         UserInputDto input = input("laura.fernandez@gmail.es");
         when(jsonFileReader.read(FILE, UserInputDto.class)).thenReturn(List.of(input));
-        when(userRepository.existsByEmail(input.email())).thenReturn(true);
+        when(userRepository.existsByEmailIgnoreCase(input.email())).thenReturn(true);
 
         assertThatThrownBy(() -> userService.importFromFile(FILE))
                 .isInstanceOf(AlreadyExistsException.class)
@@ -78,10 +78,36 @@ class UserServiceImplTest {
     void shouldRejectEmailDuplicatedWithinTheSameFile() {
         UserInputDto input = input("laura.fernandez@gmail.es");
         when(jsonFileReader.read(FILE, UserInputDto.class)).thenReturn(List.of(input, input));
-        when(userRepository.existsByEmail(input.email())).thenReturn(false);
+        when(userRepository.existsByEmailIgnoreCase(input.email())).thenReturn(false);
         when(userMapper.toEntity(input)).thenReturn(UserEntity.builder().email(input.email()).build());
 
         assertThatThrownBy(() -> userService.importFromFile(FILE))
                 .isInstanceOf(AlreadyExistsException.class);
+    }
+
+    @Test
+    void shouldRejectEmailAlreadyStoredIgnoringCase() {
+        UserInputDto input = input("LAURA.FERNANDEZ@GMAIL.ES");
+        when(jsonFileReader.read(FILE, UserInputDto.class)).thenReturn(List.of(input));
+        when(userRepository.existsByEmailIgnoreCase("laura.fernandez@gmail.es")).thenReturn(true);
+
+        assertThatThrownBy(() -> userService.importFromFile(FILE))
+                .isInstanceOf(AlreadyExistsException.class)
+                .hasMessageContaining(input.email());
+        verify(userRepository, never()).saveAll(any());
+    }
+
+    @Test
+    void shouldRejectEmailsDuplicatedIgnoringCaseWithinTheSameFile() {
+        UserInputDto first = input("laura.fernandez@gmail.es");
+        UserInputDto second = input("LAURA.FERNANDEZ@GMAIL.ES");
+        when(jsonFileReader.read(FILE, UserInputDto.class)).thenReturn(List.of(first, second));
+        when(userRepository.existsByEmailIgnoreCase("laura.fernandez@gmail.es")).thenReturn(false);
+        when(userMapper.toEntity(first)).thenReturn(UserEntity.builder().email(first.email()).build());
+
+        assertThatThrownBy(() -> userService.importFromFile(FILE))
+                .isInstanceOf(AlreadyExistsException.class)
+                .hasMessageContaining(second.email());
+        verify(userRepository, never()).saveAll(any());
     }
 }

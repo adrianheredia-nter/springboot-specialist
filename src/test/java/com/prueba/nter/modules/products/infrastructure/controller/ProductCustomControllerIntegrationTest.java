@@ -76,6 +76,11 @@ class ProductCustomControllerIntegrationTest {
                 .andExpect(jsonPath("$", hasSize(4)));
 
         mockMvc.perform(get(Constants.CUSTOM_PRODUCTS_PATH + "/by-user")
+                        .param("email", "MARIA.GOMEZ@GMAIL.ES"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(4)));
+
+        mockMvc.perform(get(Constants.CUSTOM_PRODUCTS_PATH + "/by-user")
                         .param("email", "maria.gomez@gmail.es")
                         .param("category", "Electrónica")
                         .param("brand", "MarcaAudio"))

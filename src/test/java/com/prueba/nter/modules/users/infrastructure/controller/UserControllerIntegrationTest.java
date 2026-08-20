@@ -51,6 +51,18 @@ class UserControllerIntegrationTest {
     }
 
     @Test
+    void shouldNormalizeUploadedEmailsBeforePersistingThem() throws Exception {
+        MockMultipartFile mixedCase = new MockMultipartFile(
+                Constants.FILE_PARAM, "Users.json", "application/json", """
+                [{"username":"Laura Fernández","email":"LAURA.FERNANDEZ@GMAIL.ES","createdAt":"2019-05-10"}]
+                """.getBytes());
+
+        mockMvc.perform(multipart(Constants.WEB_USERS_PATH).file(mixedCase))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$[0].email").value("laura.fernandez@gmail.es"));
+    }
+
+    @Test
     void shouldReturnConflictWhenAnEmailIsAlreadyRegistered() throws Exception {
         MockMultipartFile duplicated = new MockMultipartFile(
                 Constants.FILE_PARAM, "Users.json", "application/json", """

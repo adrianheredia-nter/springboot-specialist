@@ -39,7 +39,8 @@ Each module follows the same layered structure: `infrastructure/controller` → 
 * `ProductEntity` (`products`): `name`, `description`, `price`, `quantity`, `category`, `brand`, `expirationDate`,
   `@ManyToOne` `provider` and `@ManyToOne` `user`.
 * `ProviderEntity` (`provider`): `cif`, `name` and `@OneToMany` `products`.
-* `UserEntity` (`users`): `username`, unique `email`, `createdAt` and `@OneToMany` `products`.
+* `UserEntity` (`users`): `username`, unique case-insensitive `email` (stored in lower case), `createdAt` and
+  `@OneToMany` `products`.
 
 A product name is unique per provider, enforced both in the entity and in the database through
 `uniqueConstraints = @UniqueConstraint(name = "uk_products_name_provider", columnNames = {"name", "provider_id"})`.
@@ -80,7 +81,7 @@ The schema is recreated on every start (`spring.jpa.hibernate.ddl-auto=create-dr
 
 | Method | Path | Description                                                         |
 |--------|------|---------------------------------------------------------------------|
-| POST   | `/`  | Uploads `Users.json` (multipart field `file`) and stores it (`201`). |
+| POST   | `/`  | Uploads `Users.json` (multipart field `file`) and stores lower-case emails (`201`). |
 | GET    | `/`  | Returns every persisted user.                                       |
 
 ### `/api/v1/query/products` — Spring Data JPA `@Query`
@@ -100,7 +101,7 @@ The schema is recreated on every start (`spring.jpa.hibernate.ddl-auto=create-dr
 | GET    | `/`                  | Optional `name` (partial, case insensitive) and `category`.                                                                      |
 | GET    | `/price-lower-than`  | Products cheaper than `?price=`.                                                                                                 |
 | GET    | `/expiration-range`  | Products expiring between `?startDate=` and `?endDate=`, sorted by descending id.                                                |
-| GET    | `/by-user`           | Products of `?email=`, optionally filtered by `category` and `brand`.                                                            |
+| GET    | `/by-user`           | Products of `?email=` (case insensitive), optionally filtered by `category` and `brand`.                                      |
 | GET    | `/oldest-users`      | Products belonging to the `?users=` oldest users.                                                                                |
 | GET    | `/search`            | Dynamic search by `name`, `category`, `brand`, `minPrice`, `maxPrice`, `startDate`, `endDate`, `providerId` returning a `Page`; paginated and sorted with `page`, `size`, `sortBy`, `direction`. |
 

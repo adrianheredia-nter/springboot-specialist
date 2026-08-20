@@ -58,7 +58,7 @@ class ProductCustomServiceImplTest {
 
     @Test
     void shouldRejectUnknownUserEmail() {
-        when(userRepository.findByEmail("ghost@gmail.es")).thenReturn(Optional.empty());
+        when(userRepository.findByEmailIgnoreCase("ghost@gmail.es")).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> productCustomService.searchByUserEmail("ghost@gmail.es", null, null))
                 .isInstanceOf(NotFoundException.class)

@@ -81,7 +81,9 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
         Join<ProductEntity, UserEntity> user = root.join(Constants.FIELD_USER);
 
         List<Predicate> predicates = new ArrayList<>();
-        predicates.add(builder.equal(user.get(Constants.FIELD_EMAIL), email));
+        predicates.add(builder.equal(
+                builder.lower(user.get(Constants.FIELD_EMAIL)),
+                builder.lower(builder.literal(email))));
         if (StringUtils.hasText(category)) {
             predicates.add(builder.equal(root.get(Constants.FIELD_CATEGORY), category));
         }

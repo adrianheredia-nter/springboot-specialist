@@ -70,6 +70,12 @@ class ProductRepositoryTest {
     }
 
     @Test
+    void shouldFindUsersByEmailIgnoringCase() {
+        assertThat(userRepository.findByEmailIgnoreCase("MARIA.GOMEZ@GMAIL.ES")).isPresent();
+        assertThat(userRepository.existsByEmailIgnoreCase("MARIA.GOMEZ@GMAIL.ES")).isTrue();
+    }
+
+    @Test
     void shouldRejectTwoProductsWithTheSameNameForTheSameProvider() {
         ProductEntity duplicated = product(SHARED_NAME, new BigDecimal("11.11"), 1L, 1L);
 

@@ -45,16 +45,17 @@ public class UserServiceImpl implements UserService {
         List<UserEntity> users = new ArrayList<>();
 
         for (UserInputDto input : inputs) {
-            checkUniqueness(input, processed);
-            users.add(userMapper.toEntity(input));
+            UserInputDto normalized = input.normalized();
+            checkUniqueness(input.email(), normalized.email(), processed);
+            users.add(userMapper.toEntity(normalized));
         }
         return userMapper.toOutputList(userRepository.saveAll(users));
     }
 
-    private void checkUniqueness(UserInputDto input, Set<String> processed) {
-        if (!processed.add(input.email()) || userRepository.existsByEmail(input.email())) {
+    private void checkUniqueness(String originalEmail, String normalizedEmail, Set<String> processed) {
+        if (!processed.add(normalizedEmail) || userRepository.existsByEmailIgnoreCase(normalizedEmail)) {
             throw new AlreadyExistsException(
-                    MessageFormat.format(Constants.ERROR_USER_EXISTS, input.email()));
+                    MessageFormat.format(Constants.ERROR_USER_EXISTS, originalEmail));
         }
     }
 }

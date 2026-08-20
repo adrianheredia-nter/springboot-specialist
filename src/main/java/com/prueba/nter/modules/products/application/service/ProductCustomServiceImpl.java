@@ -51,7 +51,7 @@ public class ProductCustomServiceImpl implements ProductCustomService {
 
     @Override
     public List<ProductOutputDto> searchByUserEmail(String email, String category, String brand) {
-        userRepository.findByEmail(email)
+        userRepository.findByEmailIgnoreCase(email)
                 .orElseThrow(NotFoundException.supplyByField(Constants.USER, Constants.FIELD_EMAIL, email));
         return productMapper.toOutputList(productRepository.searchByUserEmail(email, category, brand));
     }
